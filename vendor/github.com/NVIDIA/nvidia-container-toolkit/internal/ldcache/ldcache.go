@@ -33,7 +33,7 @@ import (
 	"github.com/NVIDIA/nvidia-container-toolkit/internal/lookup/symlinks"
 )
 
-const ldcachePath = "/etc/ld.so.cache"
+const ldcachePath = "/usr/local/glibc/etc/ld.so.cache"
 
 const (
 	magicString1 = "ld.so-1.7.0"

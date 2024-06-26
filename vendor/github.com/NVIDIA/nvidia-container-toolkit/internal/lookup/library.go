@@ -36,6 +36,7 @@ func NewLibraryLocator(opts ...Option) Locator {
 
 	// If search paths are already specified, we return a locator for the specified search paths.
 	if len(b.searchPaths) > 0 {
+		b.logger.Infof("Returning symlink locator with paths: %v", b.searchPaths)
 		return NewSymlinkLocator(
 			WithLogger(b.logger),
 			WithSearchPaths(b.searchPaths...),
@@ -56,6 +57,7 @@ func NewLibraryLocator(opts ...Option) Locator {
 			"/lib/aarch64-linux-gnu",
 			"/lib/x86_64-linux-gnu/nvidia/current",
 			"/lib/aarch64-linux-gnu/nvidia/current",
+			"/usr/local/lib",
 		}...),
 	)
 	// We construct a symlink locator for expected library locations.
