@@ -50,6 +50,7 @@ func (r root) isDevRoot() bool {
 }
 
 func (r root) tryResolveLibrary(libraryName string) string {
+	klog.Infof("tryResolveLibrary: %v", libraryName)
 	if r == "" || r == "/" {
 		return libraryName
 	}
@@ -81,6 +82,7 @@ func (r root) tryResolveLibrary(libraryName string) string {
 // This is equivalent to running `readlink -f ${l}`.
 func resolveLink(l string) (string, error) {
 	resolved, err := filepath.EvalSymlinks(l)
+	klog.Infof("resolveLink(%v): %v, %v", l, resolved, err)
 	if err != nil {
 		return "", fmt.Errorf("error resolving link '%v': %w", l, err)
 	}

@@ -328,7 +328,7 @@ func startPlugins(c *cli.Context, o *options) ([]plugin.Interface, bool, error) 
 	if err != nil {
 		return nil, false, fmt.Errorf("failed to marshal config to JSON: %v", err)
 	}
-	klog.Infof("\nRunning with config:\n%v", string(configJSON))
+	klog.Infof("Running with config:\n%v", string(configJSON))
 
 	spec.DisableResourceNamingInConfig(config)
 
