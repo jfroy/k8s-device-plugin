@@ -323,6 +323,13 @@ func startPlugins(c *cli.Context, o *options) ([]plugin.Interface, bool, error) 
 	if err != nil {
 		return nil, false, fmt.Errorf("unable to load config: %v", err)
 	}
+	// Print the config to the output.
+	configJSON, err := json.MarshalIndent(config, "", "  ")
+	if err != nil {
+		return nil, false, fmt.Errorf("failed to marshal config to JSON: %v", err)
+	}
+	klog.Infof("\nRunning with config:\n%v", string(configJSON))
+
 	spec.DisableResourceNamingInConfig(config)
 
 	driverRoot := root(*config.Flags.Plugin.ContainerDriverRoot)
@@ -348,14 +355,6 @@ func startPlugins(c *cli.Context, o *options) ([]plugin.Interface, bool, error) 
 	if err != nil {
 		return nil, false, fmt.Errorf("unable to add default resources to config: %v", err)
 	}
-
-	// Print the config to the output.
-	configJSON, err := json.MarshalIndent(config, "", "  ")
-	if err != nil {
-		return nil, false, fmt.Errorf("failed to marshal config to JSON: %v", err)
-	}
-	klog.Infof("\nRunning with config:\n%v", string(configJSON))
-
 	// Get the set of plugins.
 	klog.Info("Retrieving plugins.")
 	plugins, err := GetPlugins(c.Context, infolib, nvmllib, devicelib, config)
