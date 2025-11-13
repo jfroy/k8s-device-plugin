@@ -34,13 +34,3 @@ jobs:
     with:
       version: ${{ needs.basic.outputs.version }}
       build_multi_arch_images: ${{ github.ref_name == 'main' || startsWith(github.ref_name, 'release-') }}
-
-  e2e-test:
-    needs:
-    - image
-    - basic
-    secrets: inherit
-    uses: ./.github/workflows/e2e.yaml
-    with:
-      version: ${{ needs.basic.outputs.version }}
-      golang_version: ${{ needs.basic.outputs.golang_version }}
