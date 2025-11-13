@@ -37,6 +37,10 @@ linters:
           - gosec
         path: .*_test.go
         text: 'G306: Expect WriteFile permissions to be 0600 or less'
+      - linters:
+          - gosec
+        path: .*_test.go
+        text: 'G602: slice index out of range'
       - path: (.+)\.go$
         text: 'G115: integer overflow conversion uint8 -> int'
     paths:
