@@ -185,9 +185,9 @@ func validateFlags(infolib nvinfo.Interface, config *spec.Config) error {
 		return fmt.Errorf("invalid --device-list-strategy option: %v", err)
 	}
 
-	hasNvml, _ := infolib.HasNvml()
+	hasNvml, errs := infolib.HasNvml()
 	if deviceListStrategies.AnyCDIEnabled() && !hasNvml {
-		return fmt.Errorf("CDI --device-list-strategy options are only supported on NVML-based systems")
+		return fmt.Errorf("CDI --device-list-strategy options are only supported on NVML-based systems: %v", errs)
 	}
 
 	if *config.Flags.Plugin.DeviceIDStrategy != spec.DeviceIDStrategyUUID && *config.Flags.Plugin.DeviceIDStrategy != spec.DeviceIDStrategyIndex {
